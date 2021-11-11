@@ -70,7 +70,7 @@ def image_align(src_file, dst_file, face_landmarks, output_size=1024, transform_
             h, w, _ = img.shape
             y, x, _ = np.ogrid[:h, :w, :1]
             mask = np.maximum(1.0 - np.minimum(np.float32(x) / pad[0], np.float32(w-1-x) / pad[2]), 1.0 - np.minimum(np.float32(y) / pad[1], np.float32(h-1-y) / pad[3]))
-            blur = qsize * 0.02
+            blur = qsize * 1
             img += (scipy.ndimage.gaussian_filter(img, [blur, blur, 0]) - img) * np.clip(mask * 3.0 + 1.0, 0.0, 1.0)
             img += (np.median(img, axis=(0,1)) - img) * np.clip(mask, 0.0, 1.0)
             img = np.uint8(np.clip(np.rint(img), 0, 255))
